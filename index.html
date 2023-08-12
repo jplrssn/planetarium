@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="module">
+      import init, { render, init_state } from './pkg/planetarium.js';
+
+        const canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var state;
+
+      function render_frame() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        render(state, ctx);
+        window.requestAnimationFrame(render_frame);
+      }
+
+      async function run() {
+        await init();
+        state = init_state();
+        render_frame();
+      }
+
+      run();
+    </script>
+  </body>
+</html>
